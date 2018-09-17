@@ -40,6 +40,7 @@ class App extends Component {
       this.addTrack = this.addTrack.bind(this);
       this.removeTrack = this.removeTrack.bind(this);
       this.updatePlaylistName = this.updatePlaylistName.bind(this);
+      this.savePlaylist = this.savePlaylist.bind(this);
     }
 
   addTrack(track) {
@@ -53,13 +54,18 @@ class App extends Component {
   }
 
   removeTrack(track) {
-    let currentPlaylist = this.state.playlistTracks;
-    let updatePlaylist = currentPlaylist.filter(song => song.id !== track.id);
+    let updatePlaylist = this.state.playlistTracks.filter(song => song.id !== track.id);
     this.setState({playlistTracks: updatePlaylist});
   }
 
   updatePlaylistName(name) {
     this.setState({playlistName: name});
+  }
+
+  savePlaylist() {
+    //track.uri not defined yet; using track id to test button
+    let trackURIs = this.state.playlistTracks.map(track => track.id);
+    console.log(`Array of track IDs to sub for URIs to test Save button: ${trackURIs}`);
   }
 
 
@@ -74,9 +80,8 @@ class App extends Component {
             {/*<!-- Add a SearchResults component -->*/}
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
             {/*<!-- Add a Playlist component -->*/}
-            <PlayList playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName}/>
+            <PlayList playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist}/>
           </div>
-
         </div>
       </div>
     );
