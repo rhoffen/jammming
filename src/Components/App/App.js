@@ -8,7 +8,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: [{
+      searchResults: [
+          {
           name: 'I Would Die 4 U',
           artist: 'Prince',
           album: 'Purple Rain',
@@ -19,21 +20,41 @@ class App extends Component {
           artist: 'Artist Formerly Known As Prince',
           album: 'Diamonds and Pearls',
           id: 'song2'
-        }],
-      playlistName: 'My Playlist',
-      playlistTracks: [{name: 'Jungle Love', artist: 'Morris Day', album: 'The Time', id: 'songA'}]
+          },
+          {
+          name: 'Jhonny Jhonny',
+          artist: 'unknown',
+          album: 'Not on an album',
+          id: 'song3'
+          }
+        ],
+      playlistName: 'Rebecca Playlist',
+      playlistTracks: [
+        {
+        name: 'Jungle Love',
+        artist: 'Morris Day',
+        album: 'The Time',
+        id: 'songA'}
+        ]
       }
       this.addTrack = this.addTrack.bind(this);
+      this.removeTrack = this.removeTrack.bind(this);
     }
 
   addTrack(track) {
     if (this.state.playlistTracks.find(trackCompare => trackCompare.id === track.id)) {
       return;
-    }
-      console.log(`Before setState call, this.state.playlistTracks.length = ${this.state.playlistTracks.length}`);
-      this.setState({playlistTracks: this.state.playlistTracks.push(track)});
-      console.log(`After setState call, this.state.playlistTracks.length = ${this.state.playlistTracks.length}`);
+      }
+      let newPlaylist=this.state.playlistTracks;
+      newPlaylist.push(track);
+      this.setState({playlistTracks: newPlaylist});
       return;
+  }
+
+  removeTrack(track) {
+    let currentPlaylist = this.state.playlistTracks;
+    let updatePlaylist = currentPlaylist.filter(song => song.id !== track.id);
+    this.setState({playlistTracks: updatePlaylist});
   }
 
   render() {
@@ -47,11 +68,7 @@ class App extends Component {
             {/*<!-- Add a SearchResults component -->*/}
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
             {/*<!-- Add a Playlist component -->*/}
-            <PlayList playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
-            {console.log(`this.state.searchResults is an array: ${Array.isArray(this.state.searchResults)}`)}
-            {console.log(`this.state.searchResults has length of: ${this.state.searchResults.length}`)}
-            {console.log(`this.state.playlistTracks is an array: ${Array.isArray(this.state.playlistTracks)}`)}
-            {console.log(`this.state.playlistTracks has length of: ${this.state.playlistTracks.length}`)}
+            <PlayList playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack}/>
           </div>
 
         </div>
