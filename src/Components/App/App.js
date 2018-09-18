@@ -42,7 +42,6 @@ class App extends Component {
       this.removeTrack = this.removeTrack.bind(this);
       this.updatePlaylistName = this.updatePlaylistName.bind(this);
       this.savePlaylist = this.savePlaylist.bind(this);
-      this.savePlaylist = this.savePlaylist.bind(this);
       this.search = this.search.bind(this);
     }
 
@@ -71,8 +70,9 @@ class App extends Component {
     console.log(`Array of track IDs to sub for URIs to test Save button: ${trackURIs}`);
   }
 
-  search(searchTerm) {
-    console.log(searchTerm);
+  search(term) {
+    console.log(term);
+    Spotify.search(term);
   }
 
 
@@ -90,7 +90,6 @@ class App extends Component {
             <PlayList playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist}/>
           </div>
         </div>
-      <Spotify />
       </div>
     );
   }
