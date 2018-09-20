@@ -46,18 +46,12 @@ class App extends Component {
   }
 
   savePlaylist() {
-    //track.uri not defined yet; using track id to test button
-    let trackURIs = this.state.playlistTracks.map(track => track.id);
-    console.log(`Array of track IDs to sub for URIs to test Save button: ${trackURIs}`);
+    let trackURIs = this.state.playlistTracks.map(track => track.uri);
+    let name = this.state.playlistName;
+    Spotify.savePlaylist(name, trackURIs);
   }
 
   search(term) {
-    // let results = Spotify.search(term);
-    // console.log('Here is results:', results);
-    // console.log(`results is an array: ${Array.isArray(results)}`)
-    // let displaySearch = this.state.searchResults;
-    // results.map(newTrack => displaySearch.push(newTrack));
-    // this.setState({searchResults: displaySearch});
     Spotify.search(term).then(results => {
       this.setState({searchResults: results})
     }).then(console.log('Here is state now:', this.state.searchResults));
