@@ -9,26 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: [
-          {
-          name: 'I Would Die 4 U',
-          artist: 'Prince',
-          album: 'Purple Rain',
-          id: 'song1'
-          },
-          {
-          name: 'Seven',
-          artist: 'Artist Formerly Known As Prince',
-          album: 'Diamonds and Pearls',
-          id: 'song2'
-          },
-          {
-          name: 'Jhonny Jhonny',
-          artist: 'unknown',
-          album: 'Not on an album',
-          id: 'song3'
-          }
-        ],
+      searchResults: [],
       playlistName: 'Rebecca Playlist',
       playlistTracks: [
         {
@@ -71,8 +52,15 @@ class App extends Component {
   }
 
   search(term) {
-    console.log(term);
-    Spotify.search(term);
+    // let results = Spotify.search(term);
+    // console.log('Here is results:', results);
+    // console.log(`results is an array: ${Array.isArray(results)}`)
+    // let displaySearch = this.state.searchResults;
+    // results.map(newTrack => displaySearch.push(newTrack));
+    // this.setState({searchResults: displaySearch});
+    Spotify.search(term).then(results => {
+      this.setState({searchResults: results})
+    }).then(console.log('Here is state now:', this.state.searchResults));
   }
 
 

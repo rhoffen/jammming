@@ -29,21 +29,36 @@ const Spotify = {
         window.location=authEndpoint;
       }
     },
+
   async search(term) {
     Spotify.getAccessToken();
     const baseUrl = 'https://api.spotify.com/v1';
     const searchParams = '/search?type=track&q=';
     let searchEndpoint = `${baseUrl}${searchParams}${term}`;
     console.log(`The search endpoint is ${searchEndpoint}`);
-    // await fetch(searchEndpoint,{
-    //   headers: {Authorization: `Bearer ${accessToken}`}
-    //   }
-    // ).then(response => {
-    //   if (response.ok) {
-    //     let jsonResponse = response.json();
-    //     return jsonResponse;
-    //   }
-    // }).then(jsonResponse => {console.log(jsonResponse); console.log(Object.keys(jsonResponse))})
+    return fetch(searchEndpoint, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    }).then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.log('There was an error')
+        }
+    }).then(jsonResponse => {
+      if (!jsonResponse.tracks) {
+        return []
+      } else {
+        return jsonResponse.tracks.items.map(song => ({
+          id: song.id,
+          name: song.name,
+          artist: song.artists[0].name,
+          album: song.album.name,
+          uri: song.uri
+        }))
+      }
+    });
   }
 }
 

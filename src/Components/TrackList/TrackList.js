@@ -7,7 +7,7 @@ class TrackList extends React.Component {
     return (
       <div className="TrackList">
         {/*You will add a map method that renders a set of Track components*/}
-        <ol>{this.props.tracks.map(track => (<li key={track.id}><Track onAdd={this.props.onAdd} track={track} onRemove={this.props.onRemove} isRemoval={this.props.isRemoval}/></li>))}</ol>
+        <ol>{this.props.tracks.map(song => (<li key={song.id}><Track onAdd={this.props.onAdd} track={song} onRemove={this.props.onRemove} isRemoval={this.props.isRemoval}/></li>))}</ol>
       </div>
     )
   }
