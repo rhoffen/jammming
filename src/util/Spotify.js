@@ -71,11 +71,25 @@ const Spotify = {
       Authorization: `Bearer ${accessToken}`
      };
      let userId;
+     //Get playlist ID for new playlist.
      return fetch(`https://api.spotify.com/v1/me`,{headers: headers}).then(response => response.json()).then(jsonResponse => {
         userId = jsonResponse.id;
-      })
-    }
-  }
-
+        return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`,{
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({name: playlistName})
+      }); //Closes object argument for POST request, then closes request
+    }).then(response => response.json()).then(
+      jsonResponse => {
+        let playlistId = jsonResponse.id;
+        console.log(`The playlist ID is ${playlistId}`);
+        return fetch(`https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`, {
+          headers: headers,
+          method: 'POST',
+          body: JSON.stringify({uris: trackUriArray})
+        })//Closes object argument for POST request, then closes request
+    });//Closes codeblock for last .then, then closes .then
+  }//Closes savePlaylist method
+} //Closes Spotify object
 
 export default Spotify;
