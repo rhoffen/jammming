@@ -6,7 +6,7 @@ const queryRedirect = '&redirect_uri=http://localhost:3000/';
 let accessToken;
 
 const Spotify = {
-  async getAccessToken() {
+  getAccessToken() {
     //If there's an access token, return it.
     if (accessToken) {
       return accessToken;
@@ -62,19 +62,17 @@ const Spotify = {
   },
 
   savePlaylist(playlistName, trackUriArray) {
-    if (!playlistName || !trackUriArray) {
-      return
+    if (!playlistName || !trackUriArray.length) {
+      return;
     }
-    let token=accessToken;
+    accessToken= Spotify.getAccessToken();
+
     let headers = {
       Authorization: `Bearer ${accessToken}`
-    }
-    let userId;
-    return fetch(`https://api.spotify.com/v1/me`,{headers: headers}).then(response => {
-      return response.json()}).then(jsonResponse => {
+     };
+     let userId;
+     return fetch(`https://api.spotify.com/v1/me`,{headers: headers}).then(response => response.json()).then(jsonResponse => {
         userId = jsonResponse.id;
-        console.log('userId:', userId);
-        return userId;
       })
     }
   }
