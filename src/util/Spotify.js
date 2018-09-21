@@ -1,7 +1,7 @@
 //import React from 'react';
 
 const client_id=process.env.REACT_APP_SPOTIFY_CLIENT_KEY;
-const queryRedirect = '&redirect_uri=http://localhost:3000/';
+const queryRedirect = '&redirect_uri=https://rhoffen.github.io/jammming/';
 
 let accessToken;
 
