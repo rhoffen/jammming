@@ -1,7 +1,8 @@
 //import React from 'react';
 
 const client_id=process.env.REACT_APP_SPOTIFY_CLIENT_KEY;
-const queryRedirect = '&redirect_uri=https://rhoffen.github.io/jammming/';
+//const queryRedirect = '&redirect_uri=https://rhoffen.github.io/jammming/';
+const queryRedirect = '&redirect_uri=http://localhost:3000/';
 
 let accessToken;
 
@@ -16,7 +17,7 @@ const Spotify = {
     let expiresArray=window.location.href.match(/expires_in=([^&]*)/);
     if (tokenArray && expiresArray) {
       accessToken=tokenArray[1];
-      let expiresIn=expiresArray[1];
+      let expiresIn=Number(expiresArray[1]);
       window.setTimeout(() => accessToken = '', expiresIn*1000);
       window.history.pushState('Access Token', null, '/');
       return accessToken;
