@@ -1,8 +1,6 @@
-//import React from 'react';
-
 const client_id=process.env.REACT_APP_SPOTIFY_CLIENT_KEY;
-//const queryRedirect = '&redirect_uri=https://rhoffen.github.io/jammming/';
-const queryRedirect = '&redirect_uri=http://localhost:3000/';
+const queryRedirect = '&redirect_uri=https://rhoffen.github.io/jammming/';
+//const queryRedirect = '&redirect_uri=http://localhost:3000/';
 
 let accessToken;
 
@@ -31,7 +29,7 @@ const Spotify = {
       }
     },
 
-  async search(term) {
+  search(term) {
     Spotify.getAccessToken();
     const baseUrl = 'https://api.spotify.com/v1';
     const searchParams = '/search?type=track&q=';
